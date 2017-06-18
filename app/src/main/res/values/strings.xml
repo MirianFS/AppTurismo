@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AppTurismo</string>
+    <string name="botao_UFSC">UFSC</string>
+    <string name="texto_local1">Parque da Luz</string>
+    <string name="descricao1">Descrição do Parque da Luz</string>
+    <string name="botao_Favoritos">Adicionar aos Favoritos</string>
 </resources>

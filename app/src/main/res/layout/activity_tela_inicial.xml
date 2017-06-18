@@ -8,17 +8,19 @@
     tools:context="com.example.mirian.appturismo.TelaInicial">
 
     <Button
-        android:layout_gravity="center_horizontal"
-        android:text="UFSC"
         android:id="@+id/botao_localizacao"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="UFSC"
+        tools:text="@string/botao_UFSC" />
 
     <ListView
+        android:id="@+id/listViewId"
+        android:layout_width="match_parent"
+        android:layout_height="374dp"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/listarPontosTuristicos"
-        android:layout_width="361dp"
-        android:layout_height="471dp"
+        android:background="@android:color/holo_blue_light"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="32dp" />
 
