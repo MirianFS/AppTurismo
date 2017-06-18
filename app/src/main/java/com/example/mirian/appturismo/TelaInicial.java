@@ -22,18 +22,7 @@ public class TelaInicial extends AppCompatActivity {
 
     private Button botaoLocalizacao;
 
-    private ListView listaItens;
 
-    private String[] itens = {
-           "Local 1",
-           "Local 2",
-           "Local 3"
-    };
-    private String[] descricao = {
-            "Descrição do local 1",
-            "Descrição do local 2",
-            "Descrição do local 3"
-    };
 
     BDPontoTuristico bd = new BDPontoTuristico(this, "BANCO_PONTOTURISTICO", null, 1);
 
@@ -44,16 +33,7 @@ public class TelaInicial extends AppCompatActivity {
 
         botaoLocalizacao = (Button) findViewById(R.id.botao_localizacao);
 
-        listaItens = (ListView) findViewById(R.id.listViewId);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getApplicationContext(),
-                android.R.layout.simple_list_item_1,
-                android.R.id.text1,
-                itens
-        );
-
-        listaItens.setAdapter(adapter);
 
         // testando adicionar Ponto Turistico no banco de dados
         // atualmente o adicinar ponto turistico não funciona :(
@@ -61,13 +41,7 @@ public class TelaInicial extends AppCompatActivity {
 //Toast.makeText(TelaInicial.this, "salvo com sucesso", Toast.LENGTH_LONG).show();
 
 
-        listaItens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int codigoPosicao = position;
-                Toast.makeText(getApplicationContext(), descricao[position], Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
         // testando adicionar Ponto Turistico no banco de dados
         // atualmente o adicinar ponto turistico não funciona :(
