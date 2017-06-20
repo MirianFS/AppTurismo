@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".DetalheActivity" />
+        <activity android:name=".FavoritosActivity"></activity>
     </application>
 
 </manifest>

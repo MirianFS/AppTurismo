@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -19,9 +20,13 @@ public class BancoDeDados extends Activity {
 
     private ListView listaItens;
 
-    private String[] opcao = {"parquedaluz", "mirantemorropedras"};
+    private String[] opcao = {
+            "parquedaluz", "mirantemorropedras"
+    };
 
     private ArrayList<String> listaLocais;
+
+    private Button botaoFavoritos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +34,14 @@ public class BancoDeDados extends Activity {
         setContentView(R.layout.activity_tela_inicial);
         listaItens = (ListView) findViewById(R.id.listViewId);
         listaLocais = new ArrayList<String>();
+        botaoFavoritos = (Button) findViewById(R.id.botaoFavoritosId);
+
+        botaoFavoritos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(BancoDeDados.this, FavoritosActivity.class));
+            }
+        });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getApplicationContext(),
@@ -106,4 +119,5 @@ public class BancoDeDados extends Activity {
                 e.printStackTrace();
             }
         }
+
 }
