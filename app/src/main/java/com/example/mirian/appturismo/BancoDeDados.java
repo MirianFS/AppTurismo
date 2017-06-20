@@ -1,6 +1,7 @@
 package com.example.mirian.appturismo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,11 +19,7 @@ public class BancoDeDados extends Activity {
 
     private ListView listaItens;
 
-    private String[] descricao = {
-            "Descrição do local 1",
-            "Descrição do local 2",
-            "Descrição do local 3"
-    };
+    private String[] opcao = {"parquedaluz", "mirantemorropedras"};
 
     private ArrayList<String> listaLocais;
 
@@ -47,7 +43,9 @@ public class BancoDeDados extends Activity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int codigoPosicao = position;
-                Toast.makeText(getApplicationContext(), descricao[position], Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(BancoDeDados.this, DetalheActivity.class);
+                intent.putExtra("opcao", opcao[position]);
+                startActivity(intent);
             }
         });
 
@@ -62,8 +60,8 @@ public class BancoDeDados extends Activity {
             bancoDados.execSQL("CREATE TABLE IF NOT EXISTS ponto_turistico(codigo INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, foto TEXT, local TEXT, descricao TEXT, data TEXT, entrada TEXT)");
 
                 //Inserir dados (linhas que estão comentadas já foram executadas e já existem no banco)
-           // bancoDados.execSQL("INSERT INTO ponto_turistico(nome, foto, local, descricao, data, entrada) VALUES('Local 1', 'imagem1.png', 'local 1', 'descrição do local 1', 'data 1', 'entrada 1')");
-           // bancoDados.execSQL("INSERT INTO ponto_turistico(nome, foto, local, descricao, data, entrada) VALUES('Local 2', 'imagem2.png', 'local 2', 'descrição do local 2', 'data 2', 'entrada 2')");
+           //bancoDados.execSQL("INSERT INTO ponto_turistico(nome, foto, local, descricao, data, entrada) VALUES('Local 1', 'parquedaluz', 'local 1', 'descrição do local 1', 'data 1', 'entrada 1')");
+           //bancoDados.execSQL("INSERT INTO ponto_turistico(nome, foto, local, descricao, data, entrada) VALUES('Local 2', 'mirantemorropedras', 'local 2', 'descrição do local 2', 'data 2', 'entrada 2')");
 
             recuperarDados();
 

@@ -5,7 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.mirian.appturismo.TelaInicial">
+    tools:context="com.example.mirian.appturismo.TelaInicial"
+    android:weightSum="1">
+
+    <ListView
+        android:id="@+id/listViewId"
+        android:layout_width="match_parent"
+        android:layout_height="374dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1.01"
+        android:background="@android:color/holo_blue_light"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="32dp" />
 
     <Button
         android:id="@+id/botao_localizacao"
@@ -14,14 +25,5 @@
         android:layout_gravity="center_horizontal"
         android:text="UFSC"
         tools:text="@string/botao_UFSC" />
-
-    <ListView
-        android:id="@+id/listViewId"
-        android:layout_width="match_parent"
-        android:layout_height="374dp"
-        android:layout_gravity="center_horizontal"
-        android:background="@android:color/holo_blue_light"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="32dp" />
 
 </LinearLayout>
