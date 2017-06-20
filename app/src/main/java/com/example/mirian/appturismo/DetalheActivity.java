@@ -12,7 +12,6 @@ import android.widget.ImageView;
 public class DetalheActivity extends AppCompatActivity {
 
     private ImageView imagem;
-    private Button botaoVoltar;
     private Button botaoMapa;
 
     @Override
@@ -21,7 +20,6 @@ public class DetalheActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detalhe);
 
         imagem = (ImageView) findViewById(R.id.imagemId);
-        botaoVoltar = (Button) findViewById(R.id.botaoVoltarId);
         botaoMapa = (Button) findViewById(R.id.botaoMapaId);
 
         Bundle extra = getIntent().getExtras();
@@ -33,13 +31,6 @@ public class DetalheActivity extends AppCompatActivity {
                 imagem.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.mirantemorropedras));
             }
         }
-
-        botaoVoltar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(DetalheActivity.this, BancoDeDados.class));
-            }
-        });
 
         botaoMapa.setOnClickListener(new View.OnClickListener() {
             @Override

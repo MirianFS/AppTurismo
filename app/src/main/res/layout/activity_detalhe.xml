@@ -20,24 +20,12 @@
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:id="@+id/botaoVoltarId"
-        android:layout_width="133dp"
-        android:layout_height="wrap_content"
-        android:text="Voltar"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="215dp"
-        tools:text="@string/botaoVoltar"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <Button
         android:id="@+id/botaoMapaId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/botaoVoltarId"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25dp"
         android:text="Mapa"
-        tools:text="@string/botaoMapa" />
+        tools:text="@string/botaoMapa"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pontos Turísticos de Florianópolis</string>
+    <string name="app_name">App Turismo</string>
     <string name="botaoVoltar">Voltar</string>
     <string name="botaoMapa">Mapa</string>
     <string name="botaoFavoritos">Favoritos</string>

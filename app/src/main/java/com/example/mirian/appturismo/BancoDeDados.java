@@ -24,9 +24,9 @@ public class BancoDeDados extends Activity {
             "parquedaluz", "mirantemorropedras"
     };
 
-    private ArrayList<String> listaLocais;
-
     private Button botaoFavoritos;
+
+    private ArrayList listaLocais;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,6 @@ public class BancoDeDados extends Activity {
         listaItens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int codigoPosicao = position;
                 Intent intent = new Intent(BancoDeDados.this, DetalheActivity.class);
                 intent.putExtra("opcao", opcao[position]);
                 startActivity(intent);
@@ -70,11 +69,11 @@ public class BancoDeDados extends Activity {
             //bancoDados.execSQL("DROP TABLE ponto_turistico");
 
             //Criar a tabela
-            bancoDados.execSQL("CREATE TABLE IF NOT EXISTS ponto_turistico(codigo INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, foto TEXT, local TEXT, descricao TEXT, data TEXT, entrada TEXT)");
+            bancoDados.execSQL("CREATE TABLE IF NOT EXISTS ponto_turistico(codigo INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, foto TEXT, local TEXT, descricao TEXT, data TEXT, entrada TEXT, favorito BOOLEAN)");
 
                 //Inserir dados (linhas que estão comentadas já foram executadas e já existem no banco)
-           //bancoDados.execSQL("INSERT INTO ponto_turistico(nome, foto, local, descricao, data, entrada) VALUES('Local 1', 'parquedaluz', 'local 1', 'descrição do local 1', 'data 1', 'entrada 1')");
-           //bancoDados.execSQL("INSERT INTO ponto_turistico(nome, foto, local, descricao, data, entrada) VALUES('Local 2', 'mirantemorropedras', 'local 2', 'descrição do local 2', 'data 2', 'entrada 2')");
+           //bancoDados.execSQL("INSERT INTO ponto_turistico(nome, foto, local, descricao, data, entrada, favorito) VALUES('Local 1', 'parquedaluz', 'local 1', 'descrição do local 1', 'data 1', 'entrada 1', 'false')");
+           //bancoDados.execSQL("INSERT INTO ponto_turistico(nome, foto, local, descricao, data, entrada, favorito) VALUES('Local 2', 'mirantemorropedras', 'local 2', 'descrição do local 2', 'data 2', 'entrada 2', 'true')");
 
             recuperarDados();
 
@@ -97,6 +96,7 @@ public class BancoDeDados extends Activity {
                 int indiceColunaDescricao = cursor.getColumnIndex("descricao");
                 int indiceColunaData = cursor.getColumnIndex("data");
                 int indiceColunaEntrada = cursor.getColumnIndex("entrada");
+                int indiceColunaFavorito = cursor.getColumnIndex("favorito");
 
                 //Listar os dados da tabela
                 cursor.moveToFirst();
@@ -107,17 +107,23 @@ public class BancoDeDados extends Activity {
                     Log.i("RESULTADO - Descrição: ", cursor.getString(indiceColunaDescricao));
                     Log.i("RESULTADO - Data: ", cursor.getString(indiceColunaData));
                     Log.i("RESULTADO - Entrada: ", cursor.getString(indiceColunaEntrada));
+                    Log.i("RESULTADO - Favorito: ", cursor.getString(indiceColunaFavorito));
                     listaLocais.add(cursor.getString(indiceColunaNome) + " - "
                             + cursor.getString(indiceColunaFoto) + " - "
                             + cursor.getString(indiceColunaDescricao) + " - "
                             + cursor.getString(indiceColunaData) + " - "
-                            + cursor.getString(indiceColunaEntrada));
+                            + cursor.getString(indiceColunaEntrada) + " - "
+                            + cursor.getString(indiceColunaFavorito));
                     cursor.moveToNext();
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+
+        public SQLiteDatabase getBancoDados() {
+            return bancoDados;
         }
 
 }
