@@ -30,8 +30,6 @@ public class TelaInicial extends Activity {
 
     private List<PontoTuristico> pontosTuristicos;
 
-    private int posicaoSelecionada;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,19 +64,6 @@ public class TelaInicial extends Activity {
 
     }
 
-    public void inserirPontosTuristicos() {
-        PontoTuristico pt1 = new PontoTuristico();
-        pt1.setCodigo(1);
-        pt1.setNome("Ponto 1");
-        pt1.setFoto("parquedaluz");
-        pt1.setLocal("geo:-27.592407,-48.560654?q=Parque+da+Luz");
-        pt1.setDescricao("descricao 1");
-        pt1.setData("data 1");
-        pt1.setEntrada("entrada 1");
-        pt1.setFavorito(true);
-        bd.salvarPontoTuristico(pt1);
-    }
-
     private void setArrayAdapter() {
         pontosTuristicos = bd.listarPontosTuristicos();
 
@@ -90,6 +75,64 @@ public class TelaInicial extends Activity {
         adapter.clear();
         adapter.addAll(valores);
         listView.setAdapter(adapter);
+    }
+
+    public void inserirPontosTuristicos() {
+
+        // primeiro ponto turístico adicionado é o Parque da Luz
+        PontoTuristico pt1 = new PontoTuristico();
+        pt1.setCodigo(1);
+        pt1.setNome("Parque da Luz");
+        pt1.setFoto("parquedaluz");
+        pt1.setLocal("geo:-27.592407,-48.560654?q=Parque+da+Luz");
+        pt1.setDescricao("O Parque da Luz é uma área verde de lazer da cidade brasileira de Florianópolis, capital do estado de " +
+                "Santa Catarina. Com área de 37.435 m², está localizado integralmente na zona urbana central da cidade, nos altos" +
+                " da rua Felipe Schmidt.");
+        pt1.setData("Aberto todos os dias 24h.");
+        pt1.setEntrada("Gratuito.");
+        pt1.setFavorito(false);
+        bd.salvarPontoTuristico(pt1);
+
+// segundo ponto turístico adicionado é Beto Carrero World
+        PontoTuristico pt2 = new PontoTuristico();
+        pt2.setCodigo(2);
+        pt2.setNome("Beto Carrero World");
+        pt2.setFoto("betocarrero");
+        pt2.setLocal("geo:-26.8016998,-48.6197606?q=Beto+Carrero+World");
+        pt2.setDescricao("Beto Carrero World é um parque temático localizado no litoral norte do estado de Santa Catarina, Brasil." +
+                " Inaugurado no dia 28 de dezembro de 1991, pelo seu idealizador João Batista Sérgio Murad, artisticamente conhecido" +
+                " como Beto Carrero, o parque foi desenvolvido em uma área de 14 milhões de metros quadrados.");
+        pt2.setData("Aberto de quinta-feira à domingo das 09:00h às 18:00h.");
+        pt2.setEntrada("De R$ 70,00 à R$ 130,00.");
+        pt2.setFavorito(false);
+        bd.salvarPontoTuristico(pt2);
+
+// terceiro ponto turístico adicionado é Praia da Joaquina
+        PontoTuristico pt3 = new PontoTuristico();
+        pt3.setCodigo(3);
+        pt3.setNome("Praia da Joaquina");
+        pt3.setFoto("praiadajoaquina");
+        pt3.setLocal("geo:/@-27.6295906,-48.4510236?q=Praia+da+Joaquina");
+        pt3.setDescricao("Praia da Joaquina é uma praia oceânica da cidade brasileira de Florianópolis, ao leste da ilha de Santa" +
+                " Catarina, ao sul do Brasil. O ponto procurado por surfistas, já foi sede de alguns campeonatos mundiais de surfe.");
+        pt3.setData("Aberto todos os dias 24h.");
+        pt3.setEntrada("Gratuito.");
+        pt3.setFavorito(false);
+        bd.salvarPontoTuristico(pt3);
+
+// quarto ponto turístico adicionado é Fortaleza de São José da Ponta Grossa
+        PontoTuristico pt4 = new PontoTuristico();
+        pt4.setCodigo(4);
+        pt4.setNome("Fortaleza de São José da Ponta Grossa");
+        pt4.setFoto("fortalezasjpg");
+        pt4.setLocal("geo:/@-27.4316589,-48.5199969?q=Fortaleza+de+S%C3%A3o+Jos%C3%A9+da+Ponta+Grossa");
+        pt4.setDescricao("A Fortaleza de São José da Ponta Grossa localiza-se entre as praias do Forte e do Jurerê, no litoral" +
+                " do estado de Santa Catarina, no Brasil. Ergue-se em posição dominante na encosta do morro da Ponta Grossa, " +
+                "a noroeste da ilha de Santa Catarina, dominando a baía Norte.");
+        pt4.setData("Aberto todos os dias das 09:00h às 18:00h.");
+        pt4.setEntrada("De R$ 4,00 à R$ 10,00.");
+        pt4.setFavorito(false);
+        bd.salvarPontoTuristico(pt4);
     }
 
 }

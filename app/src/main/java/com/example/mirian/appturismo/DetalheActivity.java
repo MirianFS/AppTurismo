@@ -80,8 +80,12 @@ public class DetalheActivity extends AppCompatActivity {
         String enderecoImagem = pt.getFoto();
         if (enderecoImagem.equals("parquedaluz")) {
             imagem.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.parquedaluz));
-        } else if (enderecoImagem.equals("mirantemorropedras")) {
-            imagem.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.mirantemorropedras));
+        } else if (enderecoImagem.equals("praiadajoaquina")) {
+            imagem.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.praiadajoaquina));
+        } else if (enderecoImagem.equals("betocarrero")) {
+            imagem.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.betocarrero));
+        } else if (enderecoImagem.equals("fortalezasjpg")) {
+            imagem.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.fortalezasjpg));
         }
     }
 
