@@ -85,5 +85,19 @@ public class BancoDeDados extends SQLiteOpenHelper {
         pontoTuristico.setFavorito(Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("favorito"))));
     }
 
+    public PontoTuristico consultarPontoTuristicoPorId(int idPontoTuristico) {
+        PontoTuristico pontoTuristico = new PontoTuristico();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.query("pontos_turisticos", null, "CODIGO = ?", new String[]{String.valueOf(idPontoTuristico)}, null, null, "NOME");
+
+        if (cursor.moveToNext()) {
+            setPontoTuristicoFromCursor(cursor, pontoTuristico);
+        }
+
+        return pontoTuristico;
+    }
+
+
 
 }

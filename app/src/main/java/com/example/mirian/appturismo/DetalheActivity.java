@@ -12,11 +12,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class DetalheActivity extends AppCompatActivity {
 
     private ImageView imagem;
     private Button botaoMapa;
     private Button botaoAddFavoritos;
+    private BancoDeDados bd;
+    private SQLiteDatabase database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +31,28 @@ public class DetalheActivity extends AppCompatActivity {
         imagem = (ImageView) findViewById(R.id.imagemId);
         botaoMapa = (Button) findViewById(R.id.botaoMapaId);
         botaoAddFavoritos = (Button) findViewById(R.id.botaoAddFavoritosId);
+        bd = new BancoDeDados(this);
+        database = bd.getWritableDatabase();
 
         Bundle extra = getIntent().getExtras();
         if (extra != null) {
-            String opcaoEscolhida = extra.getString("opcao");
+            int codigo = extra.getInt("opcao");
+            /*
             if (opcaoEscolhida.equals("parquedaluz")) {
                 imagem.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.parquedaluz));
             } else if (opcaoEscolhida.equals("mirantemorropedras")){
                 imagem.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.mirantemorropedras));
             }
+            */
+
+            PontoTuristico pt = bd.consultarPontoTuristicoPorId(codigo);
+            StringBuilder info = new StringBuilder();
+            info.append("Nome: " + pt.getNome());
+            info.append("\nFoto: " + pt.getFoto());
+            info.append("\nLocal: " + pt.getLocal());
+            info.append("\nDescrição: " + pt.getDescricao());
+            info.append("\nData: " + pt.getData());
+            info.append("\nEntrada: " + pt.getEntrada());
         }
 
         botaoMapa.setOnClickListener(new View.OnClickListener() {

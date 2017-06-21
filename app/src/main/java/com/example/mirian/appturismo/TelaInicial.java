@@ -19,10 +19,6 @@ public class TelaInicial extends Activity {
 
     private ListView listView;
 
-    private String[] opcao = {
-            "parquedaluz", "mirantemorropedras"
-    };
-
     private Button botaoFavoritos;
 
     private BancoDeDados bd;
@@ -32,6 +28,8 @@ public class TelaInicial extends Activity {
     private ArrayAdapter adapter;
 
     private List<PontoTuristico> pontosTuristicos;
+
+    private int posicaoSelecionada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +54,14 @@ public class TelaInicial extends Activity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(TelaInicial.this, DetalheActivity.class);
-                intent.putExtra("opcao", opcao[position]);
-                startActivity(intent);
+                Intent i = new Intent(TelaInicial.this, DetalheActivity.class);
+                PontoTuristico pt = bd.consultarPontoTuristicoPorId(pontosTuristicos.get(position).getCodigo());
+                int codigo = pt.getCodigo();
+                i.putExtra("opcao", codigo);
+                startActivity(i);
             }
         });
+
     }
 
     public void inserirPontosTuristicos() {
