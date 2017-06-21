@@ -39,6 +39,7 @@ public class DetalheActivity extends AppCompatActivity {
         database = bd.getWritableDatabase();
         dadosLocal = (TextView) findViewById(R.id.campoTextoId);
 
+
         Bundle extra = getIntent().getExtras();
         if (extra != null) {
             int codigo = extra.getInt("opcao");
@@ -50,6 +51,7 @@ public class DetalheActivity extends AppCompatActivity {
             info.append("\nDescrição: " + pt.getDescricao());
             info.append("\nData: " + pt.getData());
             info.append("\nEntrada: " + pt.getEntrada());
+            info.append("\nFavorito: " + pt.getFavorito());
             dadosLocal.setText(info.toString());
 
             selecionarFoto();
@@ -68,7 +70,7 @@ public class DetalheActivity extends AppCompatActivity {
         botaoAddFavoritos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pt.setFavorito(true);
+                pt.setFavorito("Sim");
                 bd.salvarPontoTuristico(pt);
                 Toast.makeText(DetalheActivity.this, "Local adicionado aos Favoritos.", Toast.LENGTH_SHORT).show();
             }

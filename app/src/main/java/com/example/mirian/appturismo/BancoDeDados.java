@@ -18,7 +18,7 @@ public class BancoDeDados extends SQLiteOpenHelper {
     private PontoTuristico pontoTuristico;
 
     private static final String BD_NOME = "banco.db";
-    private static final int BD_VERSAO = 1;
+    private static final int BD_VERSAO = 2;
     public static final String TABELA = "pontos_turisticos";
     public static final String COLUNA_CODIGO = "codigo";
     public static final String COLUNA_NOME = "nome";
@@ -40,7 +40,7 @@ public class BancoDeDados extends SQLiteOpenHelper {
                 + " INTEGER PRIMARY KEY ," + COLUNA_NOME + " TEXT NOT NULL,"
                 + COLUNA_FOTO + " TEXT NOT NULL, " + COLUNA_LOCAL + " TEXT NOT NULL,"
                 + COLUNA_DESCRICAO+ " TEXT NOT NULL, " + COLUNA_DATA + " TEXT NOT NULL,"
-                + COLUNA_ENTRADA + " TEXT NOT NULL, " + COLUNA_FAVORITO + " BOOLEAN)";
+                + COLUNA_ENTRADA + " TEXT NOT NULL, " + COLUNA_FAVORITO + " TEXT NOT NULL)";
         db.execSQL(SQL_CREATE);
 
         contentValues = new ContentValues();
@@ -82,7 +82,7 @@ public class BancoDeDados extends SQLiteOpenHelper {
         pontoTuristico.setDescricao(cursor.getString(cursor.getColumnIndex("descricao")));
         pontoTuristico.setData(cursor.getString(cursor.getColumnIndex("data")));
         pontoTuristico.setEntrada(cursor.getString(cursor.getColumnIndex("entrada")));
-        pontoTuristico.setFavorito(Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("favorito"))));
+        pontoTuristico.setFavorito(cursor.getString(cursor.getColumnIndex("favorito")));
     }
 
     public PontoTuristico consultarPontoTuristicoPorId(int idPontoTuristico) {
@@ -102,8 +102,5 @@ public class BancoDeDados extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("pontos_turisticos", "CODIGO = ?", new String[] {String.valueOf(idPontoTuristico)});
     }
-
-
-
 
 }

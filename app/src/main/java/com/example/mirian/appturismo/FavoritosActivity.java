@@ -59,9 +59,9 @@ public class FavoritosActivity extends Activity {
 
         List<String> valores = new ArrayList<String>();
         for (PontoTuristico pt : pontosTuristicosFavoritos) {
-            if (pt.isFavorito()) {
+           if (pt.getFavorito().equals("Sim")) {
                 valores.add(pt.getNome());
-            }
+           }
         }
 
         adapter.clear();

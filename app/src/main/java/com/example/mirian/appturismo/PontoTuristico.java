@@ -12,13 +12,13 @@ public class PontoTuristico {
     private String descricao;
     private String data;
     private String entrada;
-    private boolean favorito;
+    private String favorito;
     private BancoDeDados bancoDeDados;
 
     public PontoTuristico () {
     }
 
-    public PontoTuristico(int codigo, String nome, String foto, String local, String descricao, String data, String entrada, boolean favorito) {
+    public PontoTuristico(int codigo, String nome, String foto, String local, String descricao, String data, String entrada, String favorito) {
         this.codigo = codigo;
         this.nome = nome;
         this.foto = foto;
@@ -85,11 +85,11 @@ public class PontoTuristico {
         this.entrada = entrada;
     }
 
-    public boolean isFavorito() {
+    public String getFavorito() {
         return favorito;
     }
 
-    public void setFavorito(boolean favorito) {
+    public void setFavorito(String favorito) {
         this.favorito = favorito;
     }
 

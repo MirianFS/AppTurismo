@@ -30,6 +30,8 @@ public class TelaInicial extends Activity {
 
     private List<PontoTuristico> pontosTuristicos;
 
+    private PontoTuristico pontoTuristico;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +52,8 @@ public class TelaInicial extends Activity {
 
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
         setArrayAdapter();
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -90,7 +94,7 @@ public class TelaInicial extends Activity {
                 " da rua Felipe Schmidt.");
         pt1.setData("Aberto todos os dias 24h.");
         pt1.setEntrada("Gratuito.");
-        pt1.setFavorito(false);
+        pt1.setFavorito("Sim");
         bd.salvarPontoTuristico(pt1);
 
 // segundo ponto turístico adicionado é Beto Carrero World
@@ -104,7 +108,7 @@ public class TelaInicial extends Activity {
                 " como Beto Carrero, o parque foi desenvolvido em uma área de 14 milhões de metros quadrados.");
         pt2.setData("Aberto de quinta-feira à domingo das 09:00h às 18:00h.");
         pt2.setEntrada("De R$ 70,00 à R$ 130,00.");
-        pt2.setFavorito(false);
+        pt2.setFavorito("Não");
         bd.salvarPontoTuristico(pt2);
 
 // terceiro ponto turístico adicionado é Praia da Joaquina
@@ -117,7 +121,7 @@ public class TelaInicial extends Activity {
                 " Catarina, ao sul do Brasil. O ponto procurado por surfistas, já foi sede de alguns campeonatos mundiais de surfe.");
         pt3.setData("Aberto todos os dias 24h.");
         pt3.setEntrada("Gratuito.");
-        pt3.setFavorito(false);
+        pt3.setFavorito("Não");
         bd.salvarPontoTuristico(pt3);
 
 // quarto ponto turístico adicionado é Fortaleza de São José da Ponta Grossa
@@ -131,8 +135,9 @@ public class TelaInicial extends Activity {
                 "a noroeste da ilha de Santa Catarina, dominando a baía Norte.");
         pt4.setData("Aberto todos os dias das 09:00h às 18:00h.");
         pt4.setEntrada("De R$ 4,00 à R$ 10,00.");
-        pt4.setFavorito(false);
+        pt4.setFavorito("Não");
         bd.salvarPontoTuristico(pt4);
     }
+
 
 }
