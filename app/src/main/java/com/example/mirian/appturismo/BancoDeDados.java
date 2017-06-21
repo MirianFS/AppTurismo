@@ -1,129 +1,88 @@
 package com.example.mirian.appturismo;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-
 import java.util.ArrayList;
+import java.util.List;
 
-public class BancoDeDados extends Activity {
+import static android.content.Context.MODE_PRIVATE;
 
-    private SQLiteDatabase bancoDados;
+public abstract class BancoDeDados extends SQLiteOpenHelper {
 
-    private ListView listaItens;
+    private SQLiteDatabase db;
+    public ContentValues contentValues;
+    private PontoTuristico pontoTuristico;
 
-    private String[] opcao = {
-            "parquedaluz", "mirantemorropedras"
-    };
+    private static final String BD_NOME = "banco.db";
+    private static final int BD_VERSAO = 1;
+    public static final String TABELA = "pontos_turisticos";
+    public static final String COLUNA_CODIGO = "codigo";
+    public static final String COLUNA_NOME = "nome";
+    public static final String COLUNA_FOTO = "foto";
+    public static final String COLUNA_LOCAL = "local";
+    public static final String COLUNA_DESCRICAO = "descricao";
+    public static final String COLUNA_DATA = "data";
+    public static final String COLUNA_ENTRADA = "entrada";
+    public static final String COLUNA_FAVORITO = "favorito";
 
-    private Button botaoFavoritos;
-
-    private ArrayList listaLocais;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela_inicial);
-        listaItens = (ListView) findViewById(R.id.listViewId);
-        listaLocais = new ArrayList<String>();
-        botaoFavoritos = (Button) findViewById(R.id.botaoFavoritosId);
-
-        botaoFavoritos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(BancoDeDados.this, FavoritosActivity.class));
-            }
-        });
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getApplicationContext(),
-                android.R.layout.simple_list_item_2,
-                android.R.id.text2,
-                listaLocais
-        );
-
-        listaItens.setAdapter(adapter);
-
-        listaItens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(BancoDeDados.this, DetalheActivity.class);
-                intent.putExtra("opcao", opcao[position]);
-                startActivity(intent);
-            }
-        });
-
-        try {
-
-            bancoDados = openOrCreateDatabase("app", MODE_PRIVATE, null);
-
-            //Deletar a tabela
-            //bancoDados.execSQL("DROP TABLE ponto_turistico");
-
-            //Criar a tabela
-            bancoDados.execSQL("CREATE TABLE IF NOT EXISTS ponto_turistico(codigo INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, foto TEXT, local TEXT, descricao TEXT, data TEXT, entrada TEXT, favorito BOOLEAN)");
-
-                //Inserir dados (linhas que estão comentadas já foram executadas e já existem no banco)
-           //bancoDados.execSQL("INSERT INTO ponto_turistico(nome, foto, local, descricao, data, entrada, favorito) VALUES('Local 1', 'parquedaluz', 'local 1', 'descrição do local 1', 'data 1', 'entrada 1', 'false')");
-           //bancoDados.execSQL("INSERT INTO ponto_turistico(nome, foto, local, descricao, data, entrada, favorito) VALUES('Local 2', 'mirantemorropedras', 'local 2', 'descrição do local 2', 'data 2', 'entrada 2', 'true')");
-
-            recuperarDados();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public BancoDeDados(Context context) {
+        super(context, BD_NOME, null, BD_VERSAO);
     }
 
-        private void recuperarDados() {
+    @Override
+    public void onCreate(SQLiteDatabase db) {
 
-            try {
+        String SQL_CREATE = "CREATE TABLE " + TABELA + "( " + COLUNA_CODIGO
+                + " INTEGER PRIMARY KEY AUTOINCREMENT ," + COLUNA_NOME + " TEXT NOT NULL,"
+                + COLUNA_FOTO + " TEXT NOT NULL, " + COLUNA_LOCAL + " TEXT NOT NULL,"
+                + COLUNA_DESCRICAO+ " TEXT NOT NULL, " + COLUNA_DATA + " TEXT NOT NULL,"
+                + COLUNA_ENTRADA + " TEXT NOT NULL, " + COLUNA_FAVORITO + " BOOLEAN)";
+        db.execSQL(SQL_CREATE);
 
-                //Recuperar os dados da tabela
-                Cursor cursor = bancoDados.rawQuery("SELECT * FROM ponto_turistico", null);
+        contentValues = new ContentValues();
+    }
 
-                //Recuperar os ids das colunas
-                int indiceColunaCodigo = cursor.getColumnIndex("codigo");
-                int indiceColunaNome = cursor.getColumnIndex("nome");
-                int indiceColunaFoto = cursor.getColumnIndex("foto");
-                int indiceColunaDescricao = cursor.getColumnIndex("descricao");
-                int indiceColunaData = cursor.getColumnIndex("data");
-                int indiceColunaEntrada = cursor.getColumnIndex("entrada");
-                int indiceColunaFavorito = cursor.getColumnIndex("favorito");
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    }
 
-                //Listar os dados da tabela
-                cursor.moveToFirst();
-                while (cursor != null) {
-                    Log.i("RESULTADO - Código: ", cursor.getString(indiceColunaCodigo));
-                    Log.i("RESULTADO - Nome: ", cursor.getString(indiceColunaNome));
-                    Log.i("RESULTADO - Foto: ", cursor.getString(indiceColunaFoto));
-                    Log.i("RESULTADO - Descrição: ", cursor.getString(indiceColunaDescricao));
-                    Log.i("RESULTADO - Data: ", cursor.getString(indiceColunaData));
-                    Log.i("RESULTADO - Entrada: ", cursor.getString(indiceColunaEntrada));
-                    Log.i("RESULTADO - Favorito: ", cursor.getString(indiceColunaFavorito));
-                    listaLocais.add(cursor.getString(indiceColunaNome) + " - "
-                            + cursor.getString(indiceColunaFoto) + " - "
-                            + cursor.getString(indiceColunaDescricao) + " - "
-                            + cursor.getString(indiceColunaData) + " - "
-                            + cursor.getString(indiceColunaEntrada) + " - "
-                            + cursor.getString(indiceColunaFavorito));
-                    cursor.moveToNext();
-                }
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public List<PontoTuristico> listarPontosTuristicos() {
+
+        List<PontoTuristico> lista = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query("pontos_turisticos", null, null, null, null, null, "nome");
+        while (cursor.moveToNext()) {
+            PontoTuristico pontoTuristico = new PontoTuristico();
+            setPontoTuristicoFromCursor(cursor, pontoTuristico);
+            lista.add(pontoTuristico);
         }
 
-        public SQLiteDatabase getBancoDados() {
-            return bancoDados;
-        }
+        return lista;
+    }
+
+
+    public void salvarPontoTuristico(PontoTuristico pontoTuristico) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues contentValues = pontoTuristico.getContentValues();
+        db.insert("pontos_turisticos", null, contentValues);
+    }
+
+    private void setPontoTuristicoFromCursor(Cursor cursor, PontoTuristico pontoTuristico) {
+        pontoTuristico.setCodigo(cursor.getInt(cursor.getColumnIndex("codigo")));
+        pontoTuristico.setNome(cursor.getString(cursor.getColumnIndex("nome")));
+        pontoTuristico.setFoto(cursor.getString(cursor.getColumnIndex("foto")));
+        pontoTuristico.setLocal(cursor.getString(cursor.getColumnIndex("local")));
+        pontoTuristico.setDescricao(cursor.getString(cursor.getColumnIndex("descricao")));
+        pontoTuristico.setData(cursor.getString(cursor.getColumnIndex("data")));
+        pontoTuristico.setEntrada(cursor.getString(cursor.getColumnIndex("entrada")));
+        pontoTuristico.setFavorito(Boolean.parseBoolean(cursor.getString(cursor.getColumnIndex("favorito"))));
+    }
+
 
 }

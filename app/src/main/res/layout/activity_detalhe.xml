@@ -26,6 +26,17 @@
         android:text="Mapa"
         tools:text="@string/botaoMapa"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="28dp" />
+
+    <Button
+        android:id="@+id/botaoAddFavoritosId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/botaoMapaId"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:text="Adicionar aos Favoritos"
+        tools:text="@string/botaoAddFavoritos" />
 
 </RelativeLayout>

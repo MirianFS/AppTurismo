@@ -3,4 +3,5 @@
     <string name="botaoVoltar">Voltar</string>
     <string name="botaoMapa">Mapa</string>
     <string name="botaoFavoritos">Favoritos</string>
+    <string name="botaoAddFavoritos">Adicionar aos Favoritos</string>
 </resources>
