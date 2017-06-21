@@ -47,7 +47,6 @@ public class DetalheActivity extends AppCompatActivity {
 
             StringBuilder info = new StringBuilder();
             info.append("Nome: " + pt.getNome());
-            info.append("\nLocal: " + pt.getLocal());
             info.append("\nDescrição: " + pt.getDescricao());
             info.append("\nData: " + pt.getData());
             info.append("\nEntrada: " + pt.getEntrada());
@@ -69,8 +68,8 @@ public class DetalheActivity extends AppCompatActivity {
         botaoAddFavoritos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //recuperar cód do item no banco
-                //alterar parâmetro deste item no banco para favorito = true
+                pt.setFavorito(true);
+                bd.salvarPontoTuristico(pt);
                 Toast.makeText(DetalheActivity.this, "Local adicionado aos Favoritos.", Toast.LENGTH_SHORT).show();
             }
         });

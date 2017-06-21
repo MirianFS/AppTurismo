@@ -3,6 +3,7 @@ package com.example.mirian.appturismo;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,13 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FavoritosActivity extends Activity {
 
     private ListView listaFavoritos;
-    private String[] opcao = {
-            "parquedaluz", "mirantemorropedras"
-    };
 
     private ArrayAdapter<String> adapter;
 
@@ -25,32 +24,49 @@ public class FavoritosActivity extends Activity {
 
     private BancoDeDados bd;
 
+    private SQLiteDatabase database;
+
+    private List<PontoTuristico> pontosTuristicosFavoritos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favoritos);
         listaFavoritos = (ListView) findViewById(R.id.listaFavoritosId);
         itens = new ArrayList<String>();
+        bd = new BancoDeDados(this);
+        database = bd.getWritableDatabase();
 
-        adapter = new ArrayAdapter<String>(
-                getApplicationContext(),
-                android.R.layout.simple_list_item_2,
-                android.R.id.text2,
-                itens
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
 
-        );
-
-        listaFavoritos.setAdapter(adapter);
+        setArrayAdapter();
 
         listaFavoritos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(FavoritosActivity.this, DetalheActivity.class);
-                intent.putExtra("opcao", opcao[position]);
-                startActivity(intent);
+                Intent i = new Intent(FavoritosActivity.this, DetalheActivity.class);
+                PontoTuristico pt = bd.consultarPontoTuristicoPorId(pontosTuristicosFavoritos.get(position).getCodigo());
+                int codigo = pt.getCodigo();
+                i.putExtra("opcao", codigo);
+                startActivity(i);
             }
         });
 
+    }
+
+    private void setArrayAdapter() {
+        pontosTuristicosFavoritos = bd.listarPontosTuristicos();
+
+        List<String> valores = new ArrayList<String>();
+        for (PontoTuristico pt : pontosTuristicosFavoritos) {
+            if (pt.isFavorito()) {
+                valores.add(pt.getNome());
+            }
+        }
+
+        adapter.clear();
+        adapter.addAll(valores);
+        listaFavoritos.setAdapter(adapter);
     }
 
 }

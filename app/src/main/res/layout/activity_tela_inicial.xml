@@ -12,23 +12,24 @@
         android:id="@+id/listViewId"
         android:layout_width="match_parent"
         android:layout_height="374dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.63"
-        android:background="@android:color/holo_blue_light"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="32dp"
+        android:layout_marginBottom="34dp"
+        android:layout_above="@+id/botaoFavoritosId"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true" />
 
     <Button
         android:id="@+id/botaoFavoritosId"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Favoritos"
+        tools:text="@string/botaoFavoritos"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="27dp"
-        android:text="Favoritos"
-        tools:text="@string/botaoFavoritos" />
+        android:layout_marginBottom="17dp" />
 
 </RelativeLayout>
