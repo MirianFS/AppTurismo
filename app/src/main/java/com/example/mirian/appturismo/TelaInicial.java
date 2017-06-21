@@ -39,6 +39,7 @@ public class TelaInicial extends Activity {
         botaoFavoritos = (Button) findViewById(R.id.botaoFavoritosId);
         bd = new BancoDeDados(this);
         database = bd.getWritableDatabase();
+        //bd.removerPontoTuristicoPorId(1);
         inserirPontosTuristicos();
 
         botaoFavoritos.setOnClickListener(new View.OnClickListener() {
@@ -65,10 +66,6 @@ public class TelaInicial extends Activity {
     }
 
     public void inserirPontosTuristicos() {
-        //PontoTuristico pt1 = new PontoTuristico(1, "Ponto 1", "foto 1", "local 1", "descricao 1", "data 1","entrada 1", false);
-        //bd.salvarPontoTuristico(pt1);
-        //PontoTuristico pt2 = new PontoTuristico(2, "Ponto 2", "foto 2", "local 2", "descricao 2", "data 2","entrada 2", true);
-        //bd.salvarPontoTuristico(pt2);
     }
 
     private void setArrayAdapter() {

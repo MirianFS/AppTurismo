@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -21,6 +23,8 @@ public class DetalheActivity extends AppCompatActivity {
     private Button botaoAddFavoritos;
     private BancoDeDados bd;
     private SQLiteDatabase database;
+    private TextView dadosLocal;
+    private PontoTuristico pt;
 
 
     @Override
@@ -33,32 +37,31 @@ public class DetalheActivity extends AppCompatActivity {
         botaoAddFavoritos = (Button) findViewById(R.id.botaoAddFavoritosId);
         bd = new BancoDeDados(this);
         database = bd.getWritableDatabase();
+        dadosLocal = (TextView) findViewById(R.id.campoTextoId);
 
         Bundle extra = getIntent().getExtras();
         if (extra != null) {
             int codigo = extra.getInt("opcao");
-            /*
-            if (opcaoEscolhida.equals("parquedaluz")) {
-                imagem.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.parquedaluz));
-            } else if (opcaoEscolhida.equals("mirantemorropedras")){
-                imagem.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.mirantemorropedras));
-            }
-            */
 
-            PontoTuristico pt = bd.consultarPontoTuristicoPorId(codigo);
+            pt = bd.consultarPontoTuristicoPorId(codigo);
+
             StringBuilder info = new StringBuilder();
             info.append("Nome: " + pt.getNome());
-            info.append("\nFoto: " + pt.getFoto());
             info.append("\nLocal: " + pt.getLocal());
             info.append("\nDescrição: " + pt.getDescricao());
             info.append("\nData: " + pt.getData());
             info.append("\nEntrada: " + pt.getEntrada());
+            dadosLocal.setText(info.toString());
+
+            selecionarFoto();
         }
 
         botaoMapa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri uri = Uri.parse("geo:-27.592407,-48.560654?q=Parque+da+Luz");
+                String mapa = pt.getLocal();
+                Uri uri = Uri.parse(mapa);
+                //Uri uri = Uri.parse("geo:-27.592407,-48.560654?q=Parque+da+Luz");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
@@ -73,6 +76,15 @@ public class DetalheActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void selecionarFoto() {
+        String enderecoImagem = pt.getFoto();
+        if (enderecoImagem.equals("parquedaluz")) {
+            imagem.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.parquedaluz));
+        } else if (enderecoImagem.equals("mirantemorropedras")) {
+            imagem.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.mirantemorropedras));
+        }
     }
 
 }

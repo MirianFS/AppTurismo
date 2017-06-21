@@ -98,6 +98,12 @@ public class BancoDeDados extends SQLiteOpenHelper {
         return pontoTuristico;
     }
 
+    public void removerPontoTuristicoPorId(int idPontoTuristico) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("pontos_turisticos", "CODIGO = ?", new String[] {String.valueOf(idPontoTuristico)});
+    }
+
+
 
 
 }
