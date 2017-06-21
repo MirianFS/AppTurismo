@@ -66,6 +66,16 @@ public class TelaInicial extends Activity {
     }
 
     public void inserirPontosTuristicos() {
+        PontoTuristico pt1 = new PontoTuristico();
+        pt1.setCodigo(1);
+        pt1.setNome("Ponto 1");
+        pt1.setFoto("parquedaluz");
+        pt1.setLocal("geo:-27.592407,-48.560654?q=Parque+da+Luz");
+        pt1.setDescricao("descricao 1");
+        pt1.setData("data 1");
+        pt1.setEntrada("entrada 1");
+        pt1.setFavorito(true);
+        bd.salvarPontoTuristico(pt1);
     }
 
     private void setArrayAdapter() {

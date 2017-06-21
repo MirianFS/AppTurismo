@@ -61,7 +61,6 @@ public class DetalheActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String mapa = pt.getLocal();
                 Uri uri = Uri.parse(mapa);
-                //Uri uri = Uri.parse("geo:-27.592407,-48.560654?q=Parque+da+Luz");
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
             }
