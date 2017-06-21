@@ -13,10 +13,11 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TelaInicial extends Activity {
 
-    private ListView listaItens;
+    private ListView listView;
 
     private String[] opcao = {
             "parquedaluz", "mirantemorropedras"
@@ -26,12 +27,21 @@ public class TelaInicial extends Activity {
 
     private BancoDeDados bd;
 
+    private SQLiteDatabase database;
+
+    private ArrayAdapter adapter;
+
+    private List<PontoTuristico> pontosTuristicos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela_inicial);
-        listaItens = (ListView) findViewById(R.id.listViewId);
+        listView = (ListView) findViewById(R.id.listViewId);
         botaoFavoritos = (Button) findViewById(R.id.botaoFavoritosId);
+        bd = new BancoDeDados(this);
+        database = bd.getWritableDatabase();
+        inserirPontosTuristicos();
 
         botaoFavoritos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,17 +50,10 @@ public class TelaInicial extends Activity {
             }
         });
 
-        /*
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getApplicationContext(),
-                android.R.layout.simple_list_item_2,
-                android.R.id.text2,
-                bd.getLista()
-        );
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1);
+        setArrayAdapter();
 
-        listaItens.setAdapter(adapter);
-
-        listaItens.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(TelaInicial.this, DetalheActivity.class);
@@ -58,10 +61,26 @@ public class TelaInicial extends Activity {
                 startActivity(intent);
             }
         });
-*/
-
     }
 
+    public void inserirPontosTuristicos() {
+        //PontoTuristico pt1 = new PontoTuristico(1, "Ponto 1", "foto 1", "local 1", "descricao 1", "data 1","entrada 1", false);
+        //bd.salvarPontoTuristico(pt1);
+        //PontoTuristico pt2 = new PontoTuristico(2, "Ponto 2", "foto 2", "local 2", "descricao 2", "data 2","entrada 2", true);
+        //bd.salvarPontoTuristico(pt2);
+    }
 
+    private void setArrayAdapter() {
+        pontosTuristicos = bd.listarPontosTuristicos();
+
+        List<String> valores = new ArrayList<String>();
+        for (PontoTuristico pt : pontosTuristicos) {
+            valores.add(pt.getNome());
+        }
+
+        adapter.clear();
+        adapter.addAll(valores);
+        listView.setAdapter(adapter);
+    }
 
 }

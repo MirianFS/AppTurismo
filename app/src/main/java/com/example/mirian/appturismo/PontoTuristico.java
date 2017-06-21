@@ -29,12 +29,12 @@ public class PontoTuristico {
         this.favorito = favorito;
     }
 
-    public int getCodigo() {
-        return codigo;
-    }
-
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    public int getCodigo() {
+        return codigo;
     }
 
     public String getNome() {

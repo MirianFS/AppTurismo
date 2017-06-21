@@ -12,9 +12,8 @@ import java.util.List;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public abstract class BancoDeDados extends SQLiteOpenHelper {
+public class BancoDeDados extends SQLiteOpenHelper {
 
-    private SQLiteDatabase db;
     public ContentValues contentValues;
     private PontoTuristico pontoTuristico;
 
@@ -38,7 +37,7 @@ public abstract class BancoDeDados extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String SQL_CREATE = "CREATE TABLE " + TABELA + "( " + COLUNA_CODIGO
-                + " INTEGER PRIMARY KEY AUTOINCREMENT ," + COLUNA_NOME + " TEXT NOT NULL,"
+                + " INTEGER PRIMARY KEY ," + COLUNA_NOME + " TEXT NOT NULL,"
                 + COLUNA_FOTO + " TEXT NOT NULL, " + COLUNA_LOCAL + " TEXT NOT NULL,"
                 + COLUNA_DESCRICAO+ " TEXT NOT NULL, " + COLUNA_DATA + " TEXT NOT NULL,"
                 + COLUNA_ENTRADA + " TEXT NOT NULL, " + COLUNA_FAVORITO + " BOOLEAN)";
@@ -49,6 +48,8 @@ public abstract class BancoDeDados extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABELA);
+        onCreate(db);
     }
 
 
